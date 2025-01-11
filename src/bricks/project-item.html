@@ -1,0 +1,43 @@
+<script>
+  const state = {
+    name: '',
+    colorCode: '',
+    description: '',
+    createdDate: '',
+    taskCount: 0,
+    completionPercentage: 0
+  }
+
+  function editProject() {
+    const newName = prompt('Enter new project name:', state.name);
+    const newColorCode = prompt('Enter new color code:', state.colorCode);
+    const newDescription = prompt('Enter new description:', state.description);
+
+    if (newName && newColorCode && newDescription) {
+      state.name = newName;
+      state.colorCode = newColorCode;
+      state.description = newDescription;
+      render();
+    }
+  }
+
+  function deleteProject() {
+    if (confirm('Are you sure you want to delete this project?')) {
+      // Logic to delete the project
+      render();
+    }
+  }
+</script>
+
+<template>
+  <div>
+    <h2>${ state.name }</h2>
+    <p>Color Code: ${ state.colorCode }</p>
+    <p>${ state.description }</p>
+    <p>Created Date: ${ state.createdDate }</p>
+    <p>Task Count: ${ state.taskCount }</p>
+    <p>Completion Percentage: ${ state.completionPercentage }%</p>
+    <button @click="editProject">Edit Project</button>
+    <button @click="deleteProject">Delete Project</button>
+  </div>
+</template>

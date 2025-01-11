@@ -1,0 +1,19 @@
+<script>
+  const state = {
+    theme: 'light'
+  }
+
+  function switchTheme() {
+    state.theme = state.theme === 'light' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', state.theme);
+    render();
+  }
+</script>
+
+<template>
+  <div>
+    <h2>Theme Switcher</h2>
+    <button @click="switchTheme">Switch Theme</button>
+    <p>Current Theme: ${ state.theme }</p>
+  </div>
+</template>

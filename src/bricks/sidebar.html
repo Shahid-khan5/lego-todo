@@ -1,0 +1,25 @@
+<script>
+  const state = {
+    visible: true
+  }
+
+  function toggleSidebar() {
+    state.visible = !state.visible;
+    render();
+  }
+</script>
+
+<template>
+  <aside :class="{ 'hidden': !state.visible }">
+    <h2>Sidebar</h2>
+    <button @click="toggleSidebar">Toggle Sidebar</button>
+    <nav>
+      <ul>
+        <li><a href="#dashboard">Dashboard</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#calendar">Calendar</a></li>
+        <li><a href="#settings">Settings</a></li>
+      </ul>
+    </nav>
+  </aside>
+</template>

@@ -1,0 +1,40 @@
+<script>
+  const state = {
+    links: [
+      { name: 'Dashboard', url: '#dashboard' },
+      { name: 'Projects', url: '#projects' },
+      { name: 'Calendar', url: '#calendar' },
+      { name: 'Settings', url: '#settings' }
+    ],
+    quickActions: [
+      { name: 'Add Task', action: () => alert('Add Task') },
+      { name: 'Add Project', action: () => alert('Add Project') }
+    ]
+  }
+
+  function navigate(url) {
+    window.location.hash = url;
+  }
+
+  function performAction(action) {
+    action();
+  }
+</script>
+
+<template>
+  <nav>
+    <ul>
+      <li :for="link in state.links">
+        <a href="${ link.url }" @click="navigate(link.url)">${ link.name }</a>
+      </li>
+    </ul>
+    <div>
+      <h3>Quick Actions</h3>
+      <ul>
+        <li :for="action in state.quickActions">
+          <button @click="performAction(action.action)">${ action.name }</button>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</template>

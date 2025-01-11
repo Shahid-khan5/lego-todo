@@ -1,0 +1,15 @@
+{
+  "name": "lego-todo",
+  "version": "1.0.0",
+  "description": "A multi-page todo application built with Lego.js",
+  "main": "index.js",
+  "scripts": {
+    "watch": "lego -w bricks"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "lego.js": "^1.0.0",
+    "tailwindcss": "^2.2.19"
+  }
+}

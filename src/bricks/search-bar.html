@@ -1,0 +1,69 @@
+<script>
+  const state = {
+    query: '',
+    filters: {
+      status: 'all',
+      priority: 'all',
+      project: 'all',
+      dateRange: 'all'
+    }
+  }
+
+  function updateQuery(event) {
+    state.query = event.target.value;
+    render();
+  }
+
+  function updateFilter(filterType, value) {
+    state.filters[filterType] = value;
+    render();
+  }
+
+  function search() {
+    alert(`Searching for: ${state.query} with filters: ${JSON.stringify(state.filters)}`);
+  }
+</script>
+
+<template>
+  <div>
+    <input type="text" placeholder="Search tasks..." @input="updateQuery">
+    <button @click="search">Search</button>
+    <div>
+      <h3>Filters</h3>
+      <div>
+        <label>Status:</label>
+        <select @change="updateFilter('status', event.target.value)">
+          <option value="all">All</option>
+          <option value="completed">Completed</option>
+          <option value="incomplete">Incomplete</option>
+        </select>
+      </div>
+      <div>
+        <label>Priority:</label>
+        <select @change="updateFilter('priority', event.target.value)">
+          <option value="all">All</option>
+          <option value="high">High</option>
+          <option value="medium">Medium</option>
+          <option value="low">Low</option>
+        </select>
+      </div>
+      <div>
+        <label>Project:</label>
+        <select @change="updateFilter('project', event.target.value)">
+          <option value="all">All</option>
+          <option value="project1">Project 1</option>
+          <option value="project2">Project 2</option>
+        </select>
+      </div>
+      <div>
+        <label>Date Range:</label>
+        <select @change="updateFilter('dateRange', event.target.value)">
+          <option value="all">All</option>
+          <option value="today">Today</option>
+          <option value="thisWeek">This Week</option>
+          <option value="thisMonth">This Month</option>
+        </select>
+      </div>
+    </div>
+  </div>
+</template>
