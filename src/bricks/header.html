@@ -1,0 +1,27 @@
+<script>
+  const state = {
+    title: 'LEGO Todo Application',
+    quickActions: [
+      { name: 'Add Task', action: () => alert('Add Task') },
+      { name: 'Add Project', action: () => alert('Add Project') }
+    ]
+  }
+
+  function performAction(action) {
+    action();
+  }
+</script>
+
+<template>
+  <header>
+    <h1>${ state.title }</h1>
+    <div>
+      <h3>Quick Actions</h3>
+      <ul>
+        <li :for="action in state.quickActions">
+          <button @click="performAction(action.action)">${ action.name }</button>
+        </li>
+      </ul>
+    </div>
+  </header>
+</template>

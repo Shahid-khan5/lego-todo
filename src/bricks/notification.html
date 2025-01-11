@@ -1,0 +1,27 @@
+<script>
+  const state = {
+    notifications: []
+  }
+
+  function addNotification(message, type) {
+    state.notifications.push({ message, type });
+    render();
+  }
+
+  function removeNotification(index) {
+    state.notifications.splice(index, 1);
+    render();
+  }
+</script>
+
+<template>
+  <section>
+    <h1>Notifications</h1>
+    <ul>
+      <li :for="(notification, index) in state.notifications">
+        <p>${ notification.message }</p>
+        <button @click="removeNotification(index)">Dismiss</button>
+      </li>
+    </ul>
+  </section>
+</template>

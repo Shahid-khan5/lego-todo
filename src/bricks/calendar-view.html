@@ -1,0 +1,80 @@
+<script>
+  const state = {
+    tasks: [],
+    view: 'monthly'
+  }
+
+  function addTask() {
+    const taskTitle = prompt('Enter task title:');
+    const taskDueDate = prompt('Enter task due date:');
+    if (taskTitle && taskDueDate) {
+      state.tasks.push({ title: taskTitle, dueDate: taskDueDate });
+      render();
+    }
+  }
+
+  function switchView(view) {
+    state.view = view;
+    render();
+  }
+
+  function dragTask(event, task) {
+    event.dataTransfer.setData('task', JSON.stringify(task));
+  }
+
+  function dropTask(event) {
+    const task = JSON.parse(event.dataTransfer.getData('task'));
+    const newDueDate = prompt('Enter new due date:');
+    if (newDueDate) {
+      task.dueDate = newDueDate;
+      render();
+    }
+  }
+</script>
+
+<template>
+  <section>
+    <h1>Calendar View</h1>
+    <div>
+      <button @click="switchView('monthly')">Monthly View</button>
+      <button @click="switchView('weekly')">Weekly View</button>
+    </div>
+    <div>
+      <h2>${ state.view === 'monthly' ? 'Monthly' : 'Weekly' } Calendar</h2>
+      <div :if="state.view === 'monthly'">
+        <!-- Render monthly calendar layout -->
+        <div :for="day in 30">
+          <div @drop="dropTask" @dragover="event.preventDefault()">
+            <h3>Day ${ day }</h3>
+            <ul>
+              <li :for="task in state.tasks.filter(task => task.dueDate === day)"
+                  draggable="true"
+                  @dragstart="event => dragTask(event, task)">
+                ${ task.title }
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div :if="state.view === 'weekly'">
+        <!-- Render weekly calendar layout -->
+        <div :for="day in 7">
+          <div @drop="dropTask" @dragover="event.preventDefault()">
+            <h3>Day ${ day }</h3>
+            <ul>
+              <li :for="task in state.tasks.filter(task => task.dueDate === day)"
+                  draggable="true"
+                  @dragstart="event => dragTask(event, task)">
+                ${ task.title }
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <h2>Quick Add Task</h2>
+      <button @click="addTask">Add Task</button>
+    </div>
+  </section>
+</template>

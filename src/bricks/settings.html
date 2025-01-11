@@ -1,0 +1,56 @@
+<script>
+  const state = {
+    preferences: {
+      theme: 'light',
+      display: 'list',
+      dataManagement: {
+        backup: false,
+        reset: false
+      }
+    }
+  }
+
+  function toggleTheme() {
+    state.preferences.theme = state.preferences.theme === 'light' ? 'dark' : 'light';
+    render();
+  }
+
+  function toggleDisplay() {
+    state.preferences.display = state.preferences.display === 'list' ? 'grid' : 'list';
+    render();
+  }
+
+  function toggleBackup() {
+    state.preferences.dataManagement.backup = !state.preferences.dataManagement.backup;
+    render();
+  }
+
+  function resetData() {
+    if (confirm('Are you sure you want to reset all data?')) {
+      state.preferences.dataManagement.reset = true;
+      render();
+    }
+  }
+</script>
+
+<template>
+  <section>
+    <h1>Settings</h1>
+    <div>
+      <h2>Theme Customization</h2>
+      <button @click="toggleTheme">Toggle Theme</button>
+      <p>Current Theme: ${ state.preferences.theme }</p>
+    </div>
+    <div>
+      <h2>Display Preferences</h2>
+      <button @click="toggleDisplay">Toggle Display</button>
+      <p>Current Display: ${ state.preferences.display }</p>
+    </div>
+    <div>
+      <h2>Data Management</h2>
+      <button @click="toggleBackup">Toggle Backup</button>
+      <p>Backup Enabled: ${ state.preferences.dataManagement.backup }</p>
+      <button @click="resetData">Reset Data</button>
+    </div>
+  </section>
+</template>

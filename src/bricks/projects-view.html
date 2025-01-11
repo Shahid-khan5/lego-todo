@@ -1,0 +1,39 @@
+<script>
+  const state = {
+    projects: []
+  }
+
+  function addProject() {
+    const projectName = prompt('Enter project name:');
+    if (projectName) {
+      state.projects.push({ name: projectName, tasks: [] });
+      render();
+    }
+  }
+
+  function deleteProject(index) {
+    if (confirm('Are you sure you want to delete this project?')) {
+      state.projects.splice(index, 1);
+      render();
+    }
+  }
+</script>
+
+<template>
+  <section>
+    <h1>Projects</h1>
+    <div>
+      <h2>Project List</h2>
+      <ul>
+        <li :for="(project, index) in state.projects">
+          ${ project.name }
+          <button @click="deleteProject(index)">Delete</button>
+        </li>
+      </ul>
+    </div>
+    <div>
+      <h2>Create Project</h2>
+      <button @click="addProject">Add Project</button>
+    </div>
+  </section>
+</template>

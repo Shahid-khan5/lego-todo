@@ -1,0 +1,84 @@
+<script>
+  const state = {
+    title: '',
+    description: '',
+    dueDate: '',
+    priority: '',
+    project: '',
+    completed: false,
+    createdAt: '',
+    updatedAt: ''
+  }
+
+  function toggleCompletion() {
+    state.completed = !state.completed;
+    updateTaskInLocalStorage(state);
+    render();
+  }
+
+  function editTask() {
+    const newTitle = prompt('Enter new title:', state.title);
+    const newDescription = prompt('Enter new description:', state.description);
+    const newDueDate = prompt('Enter new due date:', state.dueDate);
+    const newPriority = prompt('Enter new priority:', state.priority);
+    const newProject = prompt('Enter new project:', state.project);
+
+    if (newTitle && newDescription && newDueDate && newPriority && newProject) {
+      state.title = newTitle;
+      state.description = newDescription;
+      state.dueDate = newDueDate;
+      state.priority = newPriority;
+      state.project = newProject;
+      state.updatedAt = new Date().toISOString();
+      updateTaskInLocalStorage(state);
+      render();
+    }
+  }
+
+  function deleteTask() {
+    if (confirm('Are you sure you want to delete this task?')) {
+      deleteTaskFromLocalStorage(state);
+      render();
+    }
+  }
+
+  function addTask() {
+    const newTitle = prompt('Enter task title:');
+    const newDescription = prompt('Enter task description:');
+    const newDueDate = prompt('Enter task due date:');
+    const newPriority = prompt('Enter task priority:');
+    const newProject = prompt('Enter task project:');
+
+    if (newTitle && newDescription && newDueDate && newPriority && newProject) {
+      const newTask = {
+        title: newTitle,
+        description: newDescription,
+        dueDate: newDueDate,
+        priority: newPriority,
+        project: newProject,
+        completed: false,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
+      };
+      addTaskToLocalStorage(newTask);
+      render();
+    }
+  }
+</script>
+
+<template>
+  <div>
+    <h2>${ state.title }</h2>
+    <p>${ state.description }</p>
+    <p>Due Date: ${ state.dueDate }</p>
+    <p>Priority: ${ state.priority }</p>
+    <p>Project: ${ state.project }</p>
+    <p>Status: ${ state.completed ? 'Completed' : 'Incomplete' }</p>
+    <p>Created At: ${ state.createdAt }</p>
+    <p>Updated At: ${ state.updatedAt }</p>
+    <button @click="toggleCompletion">${ state.completed ? 'Mark as Incomplete' : 'Mark as Complete' }</button>
+    <button @click="editTask">Edit Task</button>
+    <button @click="deleteTask">Delete Task</button>
+    <button @click="addTask">Add Task</button>
+  </div>
+</template>
